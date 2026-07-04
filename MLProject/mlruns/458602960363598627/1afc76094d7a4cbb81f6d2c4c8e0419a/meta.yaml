@@ -1,0 +1,15 @@
+artifact_uri: /home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/458602960363598627/1afc76094d7a4cbb81f6d2c4c8e0419a/artifacts
+end_time: 1783151444805
+entry_point_name: ''
+experiment_id: '458602960363598627'
+lifecycle_stage: active
+run_id: 1afc76094d7a4cbb81f6d2c4c8e0419a
+run_name: placid-crab-874
+run_uuid: 1afc76094d7a4cbb81f6d2c4c8e0419a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1783151432761
+status: 3
+tags: []
+user_id: runner
