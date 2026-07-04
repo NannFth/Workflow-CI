@@ -1,0 +1,15 @@
+artifact_uri: /home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/458602960363598627/d5c180437f1941c1b2ffa962cb163ec4/artifacts
+end_time: 1783153304053
+entry_point_name: ''
+experiment_id: '458602960363598627'
+lifecycle_stage: active
+run_id: d5c180437f1941c1b2ffa962cb163ec4
+run_name: intelligent-rat-458
+run_uuid: d5c180437f1941c1b2ffa962cb163ec4
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1783153296797
+status: 3
+tags: []
+user_id: runner
