@@ -38,12 +38,12 @@ jobs:
       - name: Run mlflow project
         working-directory: MLProject
         run: |
-          mlflow run . --env-manager=local --experiment-name "California Housing Price Prediction - CI"
+          mlflow run . --env-manager=local --experiment-name "California Housing Price Prediction - CI" | tee mlflow_run_output.log
 
       - name: Get latest MLflow run_id
         working-directory: MLProject
         run: |
-          RUN_ID=$(ls -t mlruns/*/ -d 2>/dev/null | grep -v "/0/" | head -n 1 | xargs -n 1 basename)
+          RUN_ID=$(grep -oP "(?<=Running command 'python modelling.py' in run with ID ')[a-f0-9]+" mlflow_run_output.log | head -n 1)
           echo "RUN_ID=$RUN_ID" >> $GITHUB_ENV
           echo "Latest run_id: $RUN_ID"
 
