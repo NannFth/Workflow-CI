@@ -67,10 +67,19 @@ jobs:
           git diff --staged --quiet || git commit -m "CI: automated training run [skip ci]"
           git push
 
+      - name: Download Model Artifact
+        working-directory: MLProject
+        run: |
+          python -c "
+          import mlflow
+          mlflow.artifacts.download_artifacts(artifact_uri='runs:/${{ env.RUN_ID }}/model', dst_path='./downloaded_model')
+          "
+          mv downloaded_model/model ./model
+
       - name: Build Docker Model
         working-directory: MLProject
         run: |
-          mlflow models build-docker --model-uri "runs:/${{ env.RUN_ID }}/model" --name "california-housing-model"
+          docker build -t california-housing-model .
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
