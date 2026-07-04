@@ -1,0 +1,60 @@
+name: MLflow CI Workflow
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up job
+        run: echo "Starting CI job"
+
+      - name: Run actions/checkout@v3
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.12.7
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12.7'
+
+      - name: Check Env
+        run: |
+          python --version
+          pip --version
+
+      - name: Install dependencies
+        run: |
+          pip install mlflow==2.19.0 pandas numpy scikit-learn
+
+      - name: Set MLflow Tracking URI
+        run: |
+          echo "MLFLOW_TRACKING_URI=./mlruns" >> $GITHUB_ENV
+
+      - name: Run mlflow project
+        working-directory: MLProject
+        run: |
+          mlflow run . --env-manager=local --experiment-name "California Housing Price Prediction - CI"
+
+      - name: Get latest MLflow run_id
+        working-directory: MLProject
+        run: |
+          RUN_ID=$(ls -t mlruns/*/ -d 2>/dev/null | grep -v "/0/" | head -n 1 | xargs -n 1 basename)
+          echo "RUN_ID=$RUN_ID" >> $GITHUB_ENV
+          echo "Latest run_id: $RUN_ID"
+
+      - name: Install Python dependencies
+        run: |
+          pip install --upgrade pip
+
+      - name: Upload to GitHub
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add MLProject/mlruns MLProject/mlartifacts || true
+          git diff --staged --quiet || git commit -m "CI: automated training run [skip ci]"
+          git push
