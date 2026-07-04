@@ -60,3 +60,22 @@ jobs:
           git status
           git diff --staged --quiet || git commit -m "CI: automated training run [skip ci]"
           git push
+
+      - name: Build Docker Model
+        working-directory: MLProject
+        run: |
+          mlflow models build-docker --model-uri "runs:/${{ env.RUN_ID }}/model" --name "california-housing-model" --enable-mlserver
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Tag Docker Image
+        run: |
+          docker tag california-housing-model ${{ secrets.DOCKER_HUB_USERNAME }}/california-housing-model:latest
+
+      - name: Push Docker Image
+        run: |
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/california-housing-model:latest
