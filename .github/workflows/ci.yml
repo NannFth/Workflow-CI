@@ -70,7 +70,7 @@ jobs:
       - name: Build Docker Model
         working-directory: MLProject
         run: |
-          mlflow models build-docker --model-uri "runs:/${{ env.RUN_ID }}/model" --name "california-housing-model" --enable-mlserver
+          mlflow models build-docker --model-uri "runs:/${{ env.RUN_ID }}/model" --name "california-housing-model"
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
