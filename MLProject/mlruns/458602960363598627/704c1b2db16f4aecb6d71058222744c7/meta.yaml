@@ -1,0 +1,15 @@
+artifact_uri: /home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/458602960363598627/704c1b2db16f4aecb6d71058222744c7/artifacts
+end_time: 1783153712363
+entry_point_name: ''
+experiment_id: '458602960363598627'
+lifecycle_stage: active
+run_id: 704c1b2db16f4aecb6d71058222744c7
+run_name: gregarious-ram-738
+run_uuid: 704c1b2db16f4aecb6d71058222744c7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1783153700063
+status: 3
+tags: []
+user_id: runner
